@@ -1,0 +1,7 @@
+apt update && apt upgrade
+apt install git python3
+apt install python3-pip
+git clone https://github.com/pkgsearch/nakr.git
+cd nakr
+pip3 install requirements.txt
+echo "Ustanovleno"
