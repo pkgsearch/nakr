@@ -1,2 +1,3 @@
 # nakr
 Накрутка просмотров телеграмм...
+Windows скачать <a href = "https://github.com/pkgsearch/nakr/raw/main/nak.exe">exe</a>.
