@@ -1,8 +1,83 @@
-import base64, codecs
-magic = 'aW1wb3J0IHJlcXVlc3RzLCByYW5kb20sIG9zCmRlZiBuYWtydXRrYSgpOgogICAgICAgIHByaW50KCIiIgrilojiloTilpHilojigIPiloTiloDilojigIPilojiloTiloDigIPilojiloDilojigIPilojilpHilojigIPiloDilojiloDigIPilojiloTiloDigIPiloTiloDilogK4paI4paR4paA4paI4oCD4paI4paA4paI4oCD4paI4paR4paI4oCD4paI4paA4paE4oCD4paI4paE4paI4oCD4paR4paI4paR4oCD4paI4paR4paI4oCD4paI4paA4paICm1hZGUgYnkgcGtnc2VhcmNoIiIiKQogICAgICAgIHBrZ3NlYXJjaCA9I'
-love = 'TyhpUI0XPYDxgPl0YKDgAP40LYDgFQEtqTO0LiDh9P60LZt0Y3DfPQEtqP+0Y7DfqTW0YKDiqP40YH6VPVcPvNtVPNtVPNtplN9VUWypKIyp3EmYaAyp3Aco24bXDbtVPNtVPNtVUOlo3u5VQ0tp2I0XPxXVPNtVPNtVPO3nKEbVT9jMJ4bVaOlo3ucMKZhqUu0VvjtVaVvXFOuplOzBtbtVPNtVPNtVPNtVPNtVPNtMzyfMI9fnJ5ypmRtCFOzYaWyLJEfnJ5ypltcPvNtVPNtVPNtVPNtVPNtVPOzo3VtoTyhMGRtnJ4tMzyfMI9fnJ5ypmR6PvNtVPNtVPNtVPNtVPNtVPNtVPNtVPNtVUOlo3u5YzSxMPufnJ5yZF5mqUWcpPtcXDbtVP'
-god = 'AgICAgIHByb3hpZXMgPSB7CiAgICAgICAgICAgICAgICAnaHR0cCc6ICdodHRwOi8vJytyYW5kb20uY2hvaWNlKGxpc3QocHJveHkpKQogICAgICAgIH0KICAgICAgICB3aGlsZSBUcnVlOgogICAgICAgICAgICAgICAgcmVxdWVzdHMuZ2V0KHBrZ3NlYXJjaCwgcHJveGllcz1wcm94aWVzKQpkZWYgcHJveHkoKToKICAgICAgICBvcy5zeXN0ZW0oImN1cmwgLW8gcHJveGllcy50eHQgaHR0cHM6Ly9hcGkucHJveHlzY3JhcGUuY29tLz9yZXF1ZXN0PWRpc3BsYXlwcm94aWVzJnByb3h5dHlwZT1odHRwIikKZGVmIG1haW4oKTo'
-destiny = 'XVPNtVPNtVPOwnT9ip2HtCFOcoaO1qPtvVvYDxgTY0YUDgqTN0YwEtgP1PvNtVPNtVPNtVPNtVPNtVPOoZI3DxgPl0YKEtqTP0YttpUWirUxXVPNtVPNtVPNtVPNtVPNtVSflKqPq0YQDhgTN0LCEtgP60YN6VPVvVvxXVPNtVPNtVPOcMvOwnT9ip2HtCG0tVwRvBtbtVPNtVPNtVPNtVPNtVPNtpUWirUxbXDbtVPNtVPNtVPNtVPNtVPNtoJScovtcPvNtVPNtVPNtMJkcMvOwnT9ip2HtCG0tVwVvBtbtVPNtVPNtVPNtVPNtVPNtozSepaI0n2RbXDbtVPNtVPNtVTIfp2H6PvNtVPNtVPNtVPNtVPNtVPOgLJyhXPxXoJScovtcPtb='
-joy = '\x72\x6f\x74\x31\x33'
-trust = eval('\x6d\x61\x67\x69\x63') + eval('\x63\x6f\x64\x65\x63\x73\x2e\x64\x65\x63\x6f\x64\x65\x28\x6c\x6f\x76\x65\x2c\x20\x6a\x6f\x79\x29') + eval('\x67\x6f\x64') + eval('\x63\x6f\x64\x65\x63\x73\x2e\x64\x65\x63\x6f\x64\x65\x28\x64\x65\x73\x74\x69\x6e\x79\x2c\x20\x6a\x6f\x79\x29')
-eval(compile(base64.b64decode(eval('\x74\x72\x75\x73\x74')),'<string>','exec'))
+import requests
+import random
+import time
+import os
+from colorama import init, Fore
+
+init(autoreset=True)
+
+def banner():
+    print(Fore.CYAN + """
+█▄░█ ▄▀█ █▄▀ █▀█ █░█ ▀█▀ █▄▀ ▄▀█
+█░▀█ █▀█ █░█ █▀▄ █▄█ ░█░ █░█ █▀█
+          made by pkgsearch (v2)
+    """)
+
+def load_proxies():
+    if not os.path.exists("proxies.txt") or os.path.getsize("proxies.txt") == 0:
+        print(Fore.YELLOW + "Скачиваю свежие прокси...")
+        try:
+            r = requests.get("https://api.proxyscrape.com/?request=displayproxies&proxytype=http", timeout=10)
+            with open("proxies.txt", "w") as f:
+                f.write(r.text)
+            print(Fore.GREEN + f"Загружено {len(r.text.splitlines())} проксей")
+        except:
+            print(Fore.RED + "Не удалось скачать прокси")
+            return []
+
+    with open("proxies.txt", "r") as f:
+        proxies = [line.strip() for line in f if line.strip()]
+    return proxies
+
+def nakrutka():
+    banner()
+    url = input(Fore.WHITE + "Введите ссылку на сообщение: ").strip()
+    
+    if not url.startswith("https://t.me/"):
+        print(Fore.RED + "Это не ссылка на ТГ!")
+        return
+
+    proxies_list = load_proxies()
+    if not proxies_list:
+        print(Fore.RED + "Проксей нет :(")
+        return
+
+    print(Fore.GREEN + f"Запущена накрутка на {url}")
+    print(Fore.YELLOW + "Нажми Ctrl+C чтобы остановить\n")
+
+    try:
+        while True:
+            proxy = random.choice(proxies_list)
+            proxies = {'http': f'http://{proxy}', 'https': f'http://{proxy}'}
+            
+            try:
+                requests.get(url, proxies=proxies, timeout=8)
+                print(Fore.GREEN + f"[+] Просмотр отправлен | {proxy}")
+            except:
+                print(Fore.RED + f"[-] Прокси сдох | {proxy}")
+            
+            time.sleep(1.5)  # ← очень важно!
+    except KeyboardInterrupt:
+        print(Fore.CYAN + "\nНакрутка остановлена. Пока!")
+
+def main():
+    while True:
+        banner()
+        print(Fore.WHITE + "1 → Обновить прокси")
+        print(Fore.WHITE + "2 → Запустить накрутку")
+        print(Fore.WHITE + "0 → Выход\n")
+        
+        choose = input(Fore.WHITE + "Выбор: ")
+        
+        if choose == "1":
+            load_proxies()
+        elif choose == "2":
+            nakrutka()
+        elif choose == "0":
+            print(Fore.MAGENTA + "Пока, легенда!")
+            break
+        else:
+            print(Fore.RED + "Неверный выбор!")
+
+if __name__ == "__main__":
+    main()
